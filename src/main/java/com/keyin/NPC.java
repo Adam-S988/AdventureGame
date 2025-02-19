@@ -1,11 +1,11 @@
 package com.keyin;
 
-public class NPCs {
+public class NPC {
     private String name;
     private String description;
     private String dialogue;
 
-    public NPCs(String name, String description, String dialogue) {
+    public NPC(String name, String description, String dialogue) {
         this.name = name;
         this.description = description;
         this.dialogue = dialogue;
@@ -24,6 +24,6 @@ public class NPCs {
     }
 
     public void talk() {
-        System.out.println(name + " says: " + dialogue);
+        System.out.println("\n" + name + " says: " + "'" + dialogue + "'");
     }
 }

@@ -9,13 +9,15 @@ public class Locations {
     private String name;
     private String description;
     private Map<String, Locations> exits;
-    private List<NPCs> npcs;  // Fixed here
+    private List<NPC> npcs;
+    private List<Item> items;
 
     public Locations(String name, String description) {
         this.name = name;
         this.description = description;
         this.exits = new HashMap<>();
-        this.npcs = new ArrayList<>();  // Initialize the list
+        this.npcs = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public String getName() {
@@ -55,7 +57,7 @@ public class Locations {
     }
 
     // New Methods for NPCs
-    public void addNPC(NPCs npc) {
+    public void addNPC(NPC npc) {
         npcs.add(npc);
     }
 
@@ -64,18 +66,48 @@ public class Locations {
             System.out.println("No one is here.");
         } else {
             System.out.println("You see:");
-            for (NPCs npc : npcs) {
+            for (NPC npc : npcs) {
                 System.out.println("- " + npc.getName() + ": " + npc.getDescription());
             }
         }
     }
 
-    public NPCs findNPC(String name) {
-        for (NPCs npc : npcs) {
+    public NPC findNPC(String name) {
+        for (NPC npc : npcs) {
             if (npc.getName().equalsIgnoreCase(name)) {
                 return npc;
             }
         }
         return null;
+    }
+
+
+    //New Methods for Items
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    public Item findItem(String itemName) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public void listItems() {
+        if (items.isEmpty()) {
+            System.out.println("\nThere are no items here.");
+        } else {
+            System.out.println("\nYou see the following items:");
+            for (Item item : items) {
+                System.out.println("- " + item);
+            }
+        }
     }
 }
