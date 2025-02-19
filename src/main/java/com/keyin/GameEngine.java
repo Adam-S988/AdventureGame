@@ -42,6 +42,7 @@ public class GameEngine {
         town.addItem(new Item("Lantern", "An old lantern with a faint glow."));
         forest.addItem(new Item("Stick", "A sturdy wooden stick, perfect for walking or self-defense."));
         graveyard.addItem(new Item("Amulet", "A mysterious amulet engraved with ancient symbols."));
+        river.addItem(new Item("Coin Purse", "A ratty coin purse someone must have dropped. It has a few old coins in it."));
 
         // Set player's starting position
         this.player = new Player("Hero", town);
@@ -49,7 +50,7 @@ public class GameEngine {
 
     public void startGame() {
         System.out.println("\nWelcome to the Adventure Game!");
-        System.out.println("\nType 'go [direction]' to move. Type 'talk to [NPC]' to talk. Type 'quit' to exit.\n");
+        System.out.println("\nType 'go [direction]' to move. Type 'talk to [NPC]' to talk. Type 'look' to look for items. Type 'inventory' to view inventory. Type 'quit' to exit.\n");
 
         while (true) {
             System.out.println("\nYou are in: " + player.getLocation().getName());
