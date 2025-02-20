@@ -111,4 +111,9 @@ public class Locations implements Serializable {
             }
         }
     }
+
+    // New Method for Navigation
+    public Locations getExitToLocation(String direction) {
+        return exits.get(direction);
+    }
 }

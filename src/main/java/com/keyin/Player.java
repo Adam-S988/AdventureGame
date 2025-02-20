@@ -2,6 +2,7 @@ package com.keyin;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Player implements Serializable {
@@ -10,11 +11,14 @@ public class Player implements Serializable {
     private String name;
     private Locations location;
     List<Item> inventory;
+    private HashSet<String> visitedLocations;  // Track visited locations
 
     public Player(String name, Locations startingLocation) {
         this.name = name;
         this.location = startingLocation;
         this.inventory = new ArrayList<>();
+        this.visitedLocations = new HashSet<>();  // Initialize the visited locations set
+        visitedLocations.add(startingLocation.getName());  // Add the starting location to visited
     }
 
     public Locations getLocation() {
@@ -23,6 +27,7 @@ public class Player implements Serializable {
 
     public void setLocation(Locations location) {
         this.location = location;
+        visitedLocations.add(location.getName());  // Add to visited locations when the player moves
     }
 
     public String getName() {
@@ -46,5 +51,10 @@ public class Player implements Serializable {
                 System.out.println("- " + item);
             }
         }
+    }
+
+    // New method to get the visited locations
+    public HashSet<String> getVisitedLocations() {
+        return visitedLocations;
     }
 }
