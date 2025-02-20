@@ -14,6 +14,7 @@ public class WorldMap {
     private void setupWorld() {
         // Define all locations (already done in GameEngine)
         Locations town = new Locations("Westgate", "A small town with a bustling marketplace.");
+        Locations house1 = new Locations("Quaint House", "A cozy house, perfect for a small family.");
         Locations forest = new Locations("Woods of the Night", "A dark forest with towering trees.");
         Locations mountain = new Locations("Mount Troyal", "A rocky mountain with a narrow path leading up.");
         Locations river = new Locations("Troyal River", "A fast-flowing river with a wooden bridge.");
@@ -21,6 +22,7 @@ public class WorldMap {
 
         // Add locations to the world map
         locations.put(town.getName(), town);
+        locations.put(house1.getName(), house1);
         locations.put(forest.getName(), forest);
         locations.put(mountain.getName(), mountain);
         locations.put(river.getName(), river);
@@ -35,6 +37,7 @@ public class WorldMap {
         river.setExits("east", town);
         graveyard.setExits("west", town);
         town.setExits("east", graveyard);
+        town.addExit("nearby house", house1);
 
         // Add NPCs
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");

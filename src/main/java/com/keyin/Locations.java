@@ -11,6 +11,7 @@ public class Locations implements Serializable {
     private String name;
     private String description;
     private Map<String, Locations> exits;
+    private Map<String, Locations> additionalExits;  // For exits added via addExit
     private List<NPC> npcs;
     private List<Item> items;
 
@@ -18,6 +19,7 @@ public class Locations implements Serializable {
         this.name = name;
         this.description = description;
         this.exits = new HashMap<>();
+        this.additionalExits = new HashMap<>();  // Initialize additionalExits
         this.npcs = new ArrayList<>();
         this.items = new ArrayList<>();
     }
@@ -39,11 +41,19 @@ public class Locations implements Serializable {
     }
 
     public Locations getExit(String direction) {
-        return exits.get(direction);
+        Locations exit = exits.get(direction);  // Check regular exits first
+        if (exit == null) {
+            exit = additionalExits.get(direction);  // Then check additional exits
+        }
+        return exit;
+    }
+
+    public void addExit(String direction, Locations location) {
+        additionalExits.put(direction, location);  // Add to additionalExits
     }
 
     public void setExits(String direction, Locations location) {
-        exits.put(direction, location);
+        exits.put(direction, location);  // Add to regular exits
     }
 
     public Map<String, Locations> getExits() {
@@ -51,11 +61,20 @@ public class Locations implements Serializable {
     }
 
     public void printExits() {
-        System.out.print("Exits: ");
-        for (String direction : exits.keySet()) {
-            System.out.print(direction + " ");
+        if (!exits.isEmpty()) {
+            System.out.println("\nExits:");
+            for (String direction : exits.keySet()) {
+                System.out.println("- " + direction);
+            }
         }
-        System.out.println();
+
+        if (!additionalExits.isEmpty()) {
+            System.out.println("\nInterior Entrances:");
+            for (String name : additionalExits.keySet()) {
+                System.out.println("- " + name);
+            }
+        }
+
     }
 
     // New Methods for NPCs
@@ -114,6 +133,10 @@ public class Locations implements Serializable {
 
     // New Method for Navigation
     public Locations getExitToLocation(String direction) {
-        return exits.get(direction);
+        Locations exit = exits.get(direction);
+        if (exit == null) {
+            exit = additionalExits.get(direction);  // Look in additional exits if not found
+        }
+        return exit;
     }
 }

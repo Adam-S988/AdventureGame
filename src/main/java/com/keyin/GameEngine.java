@@ -27,7 +27,7 @@ public class GameEngine {
             player.getLocation().listNPCs();
             player.getLocation().printExits();
 
-            System.out.print("> ");
+            System.out.print(">");
             String input = scanner.nextLine().trim().toLowerCase();
 
             if (input.equals("quit")) {
@@ -58,7 +58,16 @@ public class GameEngine {
                 } else {
                     System.out.println("\nThere's no item by that name here.");
                 }
-            } else if (input.startsWith("drop ")) {
+            } else if (input.startsWith("enter ")) {
+                String locationName = input.substring(6).trim();  // Get the location name after "enter"
+                Locations targetLocation = player.getLocation().getExit(locationName);  // Use the location name directly
+                if (targetLocation != null) {
+                    player.setLocation(targetLocation);
+                    System.out.println("You have moved to \u001B[35m" + targetLocation.getName() + "\u001B[0m.");
+                } else {
+                    System.out.println("That location doesn't exist.");
+                }
+        } else if (input.startsWith("drop ")) {
                 String itemName = input.substring(5).trim();
                 Item itemToDrop = null;
                 for (Item item : player.inventory) {
