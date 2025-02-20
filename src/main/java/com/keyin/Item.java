@@ -23,6 +23,6 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return name + ": " + description;
+        return "\u001B[33m" + name + ":\u001B[0m " + description;
     }
 }

@@ -26,6 +26,6 @@ public class NPC implements Serializable {
     }
 
     public void talk() {
-        System.out.println("\n" + name + " says: " + "'" + dialogue + "'");
+        System.out.println("\n\u001B[36m" + name + "\u001B[0m: " + "\u001B[34m'" + dialogue + "'\u001B[0m");
     }
 }

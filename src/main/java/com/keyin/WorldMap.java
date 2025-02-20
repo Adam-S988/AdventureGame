@@ -39,6 +39,18 @@ public class WorldMap {
         // Add NPCs
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");
         town.addNPC(oldMan);
+        NPC startGuide = new NPC("Guide", "A worldly fellow, who looks eager to help.", "You can use the following commands:\n" +
+                "- 'go [direction]': Move in a direction (e.g., 'go north').\n" +
+                "- 'talk to [NPC]': Talk to an NPC (e.g., 'talk to Guide').\n" +
+                "- 'look': Look around the current location.\n" +
+                "- 'map': View the world map.\n" +
+                "- 'inventory': View your inventory.\n" +
+                "- 'take [item]': Pick up an item.\n" +
+                "- 'drop [item]': Drop an item.\n" +
+                "- 'save': Save the game.\n" +
+                "- 'load': Load a saved game.\n" +
+                "- 'quit': Exit the game.\n");
+        town.addNPC(startGuide);
         NPC ghost = new NPC("Ghost", "A translucent figure floating above the ground.", "Beware... the darkness beyond...");
         graveyard.addNPC(ghost);
         NPC riverGuard = new NPC("River Guard", "A serious looking man who watches over those who cross the river.", "I'm sorry, but I cannot let you cross the river.");

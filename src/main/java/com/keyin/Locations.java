@@ -69,7 +69,7 @@ public class Locations implements Serializable {
         } else {
             System.out.println("You see:");
             for (NPC npc : npcs) {
-                System.out.println("- " + npc.getName() + ": " + npc.getDescription());
+                System.out.println("-\u001B[36m " + npc.getName() + "\u001B[0m: " + npc.getDescription());
             }
         }
     }

@@ -19,10 +19,10 @@ public class GameEngine {
     public void startGame() {
         // Game intro and instructions
         System.out.println("\nWelcome to the Adventure Game!");
-        System.out.println("\nType 'go [direction]' to move. Type 'talk to [NPC]' to talk. Type 'look' to look for items. Type 'map' to view the world map. Type 'inventory' to view inventory. Type 'save' to save your game. Type 'load' to load your game. Type 'quit' to exit.\n");
+        System.out.println("\nType 'talk to [NPC]' to talk. Type 'quit' to exit.\n");
 
         while (true) {
-            System.out.println("\nYou are in: " + player.getLocation().getName());
+            System.out.println("\nYou are in: \u001B[35m" + player.getLocation().getName() + "\u001B[0m");
             System.out.println(player.getLocation().getDescription());
             player.getLocation().listNPCs();
             player.getLocation().printExits();
@@ -54,7 +54,7 @@ public class GameEngine {
                 if (item != null) {
                     player.getLocation().removeItem(item);
                     player.addItem(item);
-                    System.out.println("\nYou picked up the " + itemName + ".");
+                    System.out.println("\nYou picked up the \u001B[33m" + itemName + "\u001B[0m.");
                 } else {
                     System.out.println("\nThere's no item by that name here.");
                 }
@@ -80,15 +80,6 @@ public class GameEngine {
                 saveGame();
             } else if (input.equals("load")) {
                 loadGame();
-            } else if (input.startsWith("go to ")) {
-                String locationName = input.substring(6).trim();
-                Locations targetLocation = worldMap.getLocation(locationName);
-                if (targetLocation != null) {
-                    player.setLocation(targetLocation);
-                    System.out.println("You have moved to " + locationName + ".");
-                } else {
-                    System.out.println("That location doesn't exist.");
-                }
             } else {
                 System.out.println("Invalid command.");
             }
@@ -132,23 +123,23 @@ public class GameEngine {
 
         // Loop through each location and check if the player has visited it
         if (player.getVisitedLocations().contains("Westgate")) {
-            System.out.println("Westgate: A small town with a bustling marketplace.");
+            System.out.println("\u001B[35mWestgate" + "\u001B[0m");
             System.out.println("Exits: east north west");
         }
         if (player.getVisitedLocations().contains("Woods of the Night")) {
-            System.out.println("Woods of the Night: A dark forest with towering trees.");
+            System.out.println("\u001B[35mWoods of the Night" + "\u001B[0m");
             System.out.println("Exits: east south");
         }
         if (player.getVisitedLocations().contains("Mount Troyal")) {
-            System.out.println("Mount Troyal: A rocky mountain with a narrow path leading up.");
+            System.out.println("\u001B[35mMount Troyal" + "\u001B[0m");
             System.out.println("Exits: west");
         }
         if (player.getVisitedLocations().contains("Troyal River")) {
-            System.out.println("Troyal River: A fast-flowing river with a wooden bridge.");
+            System.out.println("\u001B[35mTroyal River" + "\u001B[0m");
             System.out.println("Exits: east");
         }
         if (player.getVisitedLocations().contains("Westgate Graveyard")) {
-            System.out.println("Westgate Graveyard: A small graveyard that appears overgrown. Many broken graves dot the space.");
+            System.out.println("\u001B[35mWestgate Graveyard" + "\u001B[0m");
             System.out.println("Exits: west");
         }
         System.out.println("------------------");
