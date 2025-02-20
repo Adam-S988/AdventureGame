@@ -1,5 +1,6 @@
 package com.keyin;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class GameEngine {
@@ -12,14 +13,14 @@ public class GameEngine {
     }
 
     private void setupWorld() {
-        // Create Locationss
+        // Create Locations
         Locations town = new Locations("Town", "A small town with a bustling marketplace.");
         Locations forest = new Locations("Forest", "A dark forest with towering trees.");
         Locations mountain = new Locations("Mountain", "A rocky mountain with a narrow path leading up.");
         Locations river = new Locations("River", "A fast-flowing river with a wooden bridge.");
         Locations graveyard = new Locations("Graveyard", "A small graveyard that appears overgrown. Many broken graves dot the space.");
 
-        // Connect Locationss
+        // Connect Locations
         town.setExits("north", forest);
         forest.setExits("south", town);
         forest.setExits("east", mountain);
@@ -29,13 +30,12 @@ public class GameEngine {
         graveyard.setExits("west", town);
         town.setExits("east", graveyard);
 
-
         // Add NPCs
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");
         town.addNPC(oldMan);
         NPC ghost = new NPC("Ghost", "A translucent figure floating above the ground.", "Beware... the darkness beyond...");
         graveyard.addNPC(ghost);
-        NPC riverGuard = new NPC("River Guard", "A serious looking man who watches over those who cross the river.","I'm sorry, but I cannot let you cross the river." );
+        NPC riverGuard = new NPC("River Guard", "A serious looking man who watches over those who cross the river.", "I'm sorry, but I cannot let you cross the river.");
         river.addNPC(riverGuard);
 
         // Add Items
@@ -50,14 +50,13 @@ public class GameEngine {
 
     public void startGame() {
         System.out.println("\nWelcome to the Adventure Game!");
-        System.out.println("\nType 'go [direction]' to move. Type 'talk to [NPC]' to talk. Type 'look' to look for items. Type 'inventory' to view inventory. Type 'quit' to exit.\n");
+        System.out.println("\nType 'go [direction]' to move. Type 'talk to [NPC]' to talk. Type 'look' to look for items. Type 'inventory' to view inventory. Type 'save' to save your game. Type 'load' to load your game. Type 'quit' to exit.\n");
 
         while (true) {
             System.out.println("\nYou are in: " + player.getLocation().getName());
             System.out.println(player.getLocation().getDescription());
             player.getLocation().listNPCs();
             player.getLocation().printExits();
-
 
             System.out.print("> ");
             String input = scanner.nextLine().trim().toLowerCase();
@@ -106,22 +105,43 @@ public class GameEngine {
                 }
             } else if (input.equals("inventory")) {
                 player.showInventory();
-            }
-            else {
+            } else if (input.equals("save")) {
+                saveGame();
+            } else if (input.equals("load")) {
+                loadGame();
+            } else {
                 System.out.println("Invalid command.");
             }
-
         }
-
     }
 
     private void movePlayer(String direction) {
-        Locations nextLocations = player.getLocation().getExit(direction);
-        if (nextLocations != null) {
-            player.setLocation(nextLocations);
+        Locations nextLocation = player.getLocation().getExit(direction);
+        if (nextLocation != null) {
+            player.setLocation(nextLocation);
             System.out.println("\nYou moved " + direction + ".");
         } else {
             System.out.println("You can't go that way.");
+        }
+    }
+
+    // Save game state (Player's Location and Inventory)
+    private void saveGame() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("game_save.dat"))) {
+            oos.writeObject(player);  // Save the player object (location and inventory)
+            System.out.println("Game saved!");
+        } catch (IOException e) {
+            System.out.println("Error saving game: " + e.getMessage());
+        }
+    }
+
+    // Load game state (Player's Location and Inventory)
+    private void loadGame() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("game_save.dat"))) {
+            player = (Player) ois.readObject();  // Load the player object (location and inventory)
+            System.out.println("Game loaded!");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading game: " + e.getMessage());
         }
     }
 }

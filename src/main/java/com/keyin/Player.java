@@ -1,9 +1,12 @@
 package com.keyin;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private Locations location;
     List<Item> inventory;

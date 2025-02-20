@@ -1,11 +1,13 @@
 package com.keyin;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Locations {
+public class Locations implements Serializable {
+    private static final long serialVersionUID = 1L; // Optional: Add a serialVersionUID for version control of serialized objects
     private String name;
     private String description;
     private Map<String, Locations> exits;
@@ -81,8 +83,7 @@ public class Locations {
         return null;
     }
 
-
-    //New Methods for Items
+    // New Methods for Items
     public void addItem(Item item) {
         items.add(item);
     }

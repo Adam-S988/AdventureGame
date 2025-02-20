@@ -1,6 +1,8 @@
 package com.keyin;
 
-public class NPC {
+import java.io.Serializable;
+
+public class NPC implements Serializable {
     private String name;
     private String description;
     private String dialogue;
