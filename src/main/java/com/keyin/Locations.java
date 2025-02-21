@@ -36,6 +36,10 @@ public class Locations implements Serializable {
         return description;
     }
 
+    public List<NPC> getNPCs() {
+        return npcs;  // Assuming you have a private List<NPC> npcs field
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }

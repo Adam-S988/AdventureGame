@@ -1,6 +1,7 @@
 package com.keyin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WorldMap {
@@ -12,7 +13,7 @@ public class WorldMap {
     }
 
     private void setupWorld() {
-        // Define all locations (already done in GameEngine)
+        // Define all locations
         Locations town = new Locations("Westgate", "A small town with a bustling marketplace.");
         Locations house1 = new Locations("Quaint House", "A cozy house, perfect for a small family.");
         Locations forest = new Locations("Woods of the Night", "A dark forest with towering trees.");
@@ -42,6 +43,11 @@ public class WorldMap {
         // Add NPCs
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");
         town.addNPC(oldMan);
+
+        NPC elder = new NPC("Elder Rowan", "An old wise man who knows many secrets.", "My Apple!");
+        town.addNPC(elder);
+
+        // NPC guide to help players with commands
         NPC startGuide = new NPC("Guide", "A worldly fellow, who looks eager to help.", "You can use the following commands:\n" +
                 "- 'go [direction]': Move in a direction (e.g., 'go north').\n" +
                 "- 'talk to [NPC]': Talk to an NPC (e.g., 'talk to Guide').\n" +
@@ -54,17 +60,31 @@ public class WorldMap {
                 "- 'load': Load a saved game.\n" +
                 "- 'quit': Exit the game.\n");
         town.addNPC(startGuide);
+
         NPC ghost = new NPC("Ghost", "A translucent figure floating above the ground.", "Beware... the darkness beyond...");
         graveyard.addNPC(ghost);
+
         NPC riverGuard = new NPC("River Guard", "A serious looking man who watches over those who cross the river.", "I'm sorry, but I cannot let you cross the river.");
         river.addNPC(riverGuard);
 
-        // Add Items
+        // Add Quests
+        Quest appleQuest = new Quest("Find the Golden Apple", "Retrieve a golden apple from the forest.",
+                List.of("Travel to the forest", "Find the tree", "Pick the apple"), "100 gold coins");
+        elder.addQuest(appleQuest);
+
+        Quest rescueQuest = new Quest("Rescue the Lost Traveler", "A traveler is lost in the mountain.",
+                List.of("Search the mountain", "Find the lost traveler", "Bring them back to town"), "250 gold coins");
+        elder.addQuest(rescueQuest);
+
+        Quest glassesQuest = new Quest("Find my Glasses!","Find the Elder's glasses.",
+                List.of("His glasses are somewhere in his house"), "50 gold coins");
+        oldMan.addQuest(glassesQuest);
+
+        // Add items to locations
         town.addItem(new Item("Lantern", "An old lantern with a faint glow."));
         forest.addItem(new Item("Stick", "A sturdy wooden stick, perfect for walking or self-defense."));
         graveyard.addItem(new Item("Amulet", "A mysterious amulet engraved with ancient symbols."));
         river.addItem(new Item("Coin Purse", "A ratty coin purse someone must have dropped. It has a few old coins in it."));
-
     }
 
     public Locations getLocation(String name) {

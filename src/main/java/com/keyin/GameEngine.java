@@ -6,14 +6,14 @@ import java.util.Scanner;
 public class GameEngine {
     private WorldMap worldMap;
     private Player player;
-    private Scanner scanner;  // Declare the scanner
+    private Scanner scanner;
 
     public GameEngine() {
         worldMap = new WorldMap();
-        scanner = new Scanner(System.in);  // Initialize the scanner
+        scanner = new Scanner(System.in);
         String startingLocationName = "Westgate";
-        Locations startingLocation = worldMap.getLocation(startingLocationName);  // Get the location from the world map
-        player = new Player("Player1", startingLocation); // Pass location name as a String
+        Locations startingLocation = worldMap.getLocation(startingLocationName);
+        player = new Player("Player1", startingLocation);
     }
 
     public void startGame() {
@@ -37,17 +37,18 @@ public class GameEngine {
                 String direction = input.substring(3).trim();
                 movePlayer(direction);
             } else if (input.equals("map")) {
-                showMap();  // Show the world map to the player
+                showMap();
             } else if (input.startsWith("talk to ")) {
                 String npcName = input.substring(8).trim();
                 NPC npc = player.getLocation().findNPC(npcName);
                 if (npc != null) {
                     npc.talk();
+                    npc.showQuests();
                 } else {
                     System.out.println("\nThere's no one by that name here.");
                 }
             } else if (input.equals("look")) {
-                player.getLocation().listItems();  // Show items in the current location
+                player.getLocation().listItems();
             } else if (input.startsWith("take ")) {
                 String itemName = input.substring(5).trim();
                 Item item = player.getLocation().findItem(itemName);
@@ -59,15 +60,15 @@ public class GameEngine {
                     System.out.println("\nThere's no item by that name here.");
                 }
             } else if (input.startsWith("enter ")) {
-                String locationName = input.substring(6).trim();  // Get the location name after "enter"
-                Locations targetLocation = player.getLocation().getExit(locationName);  // Use the location name directly
+                String locationName = input.substring(6).trim();
+                Locations targetLocation = player.getLocation().getExit(locationName);
                 if (targetLocation != null) {
                     player.setLocation(targetLocation);
                     System.out.println("You have moved to \u001B[35m" + targetLocation.getName() + "\u001B[0m.");
                 } else {
                     System.out.println("That location doesn't exist.");
                 }
-        } else if (input.startsWith("drop ")) {
+            } else if (input.startsWith("drop ")) {
                 String itemName = input.substring(5).trim();
                 Item itemToDrop = null;
                 for (Item item : player.inventory) {
@@ -89,9 +90,49 @@ public class GameEngine {
                 saveGame();
             } else if (input.equals("load")) {
                 loadGame();
+            } else if (input.equals("quests")) {
+                player.showQuests();
+            } else if (input.startsWith("accept quest ")) {
+                String questTitle = input.substring(13).trim();
+                acceptQuestFromCurrentLocation(questTitle);
+            } else if (input.startsWith("complete quest ")) {
+                String questTitle = input.substring(14).trim();
+                player.completeQuest(questTitle);
             } else {
-                System.out.println("Invalid command.");
+                System.out.println("Invalid command. Type 'talk to guide' for help.");
             }
+        }
+    }
+
+    private void acceptQuestFromCurrentLocation(String questTitle) {
+        boolean questFound = false;
+        for (NPC npc : player.getLocation().getNPCs()) {
+            Quest quest = npc.getQuestByTitle(questTitle);
+            if (quest != null) {
+                // Check if the player already has this quest
+                boolean alreadyHasQuest = false;
+                for (Quest activeQuest : player.getActiveQuests()) {
+                    if (activeQuest.getTitle().equalsIgnoreCase(questTitle)) {
+                        alreadyHasQuest = true;
+                        break;
+                    }
+                }
+
+                if (alreadyHasQuest) {
+                    System.out.println("You have already accepted this quest!");
+                } else {
+                    player.acceptQuest(quest);
+                    System.out.println("Quest accepted from " + npc.getName() + "!");
+                    System.out.println("Description: " + quest.getDescription());
+                    System.out.println("First task: " + quest.getCurrentTask());
+                }
+                questFound = true;
+                break;
+            }
+        }
+
+        if (!questFound) {
+            System.out.println("No such quest available in this location.");
         }
     }
 
@@ -107,20 +148,18 @@ public class GameEngine {
         }
     }
 
-    // Save game state (Player's Location and Inventory)
     private void saveGame() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("game_save.dat"))) {
-            oos.writeObject(player);  // Save the player object (location and inventory)
+            oos.writeObject(player);
             System.out.println("Game saved!");
         } catch (IOException e) {
             System.out.println("Error saving game: " + e.getMessage());
         }
     }
 
-    // Load game state (Player's Location and Inventory)
     private void loadGame() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("game_save.dat"))) {
-            player = (Player) ois.readObject();  // Load the player object (location and inventory)
+            player = (Player) ois.readObject();
             System.out.println("Game loaded!");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error loading game: " + e.getMessage());

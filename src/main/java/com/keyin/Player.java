@@ -11,14 +11,18 @@ public class Player implements Serializable {
     private String name;
     private Locations location;
     List<Item> inventory;
-    private HashSet<String> visitedLocations;  // Track visited locations
+    private HashSet<String> visitedLocations;
+    private List<Quest> activeQuests;
+    private List<Quest> completedQuests;
 
     public Player(String name, Locations startingLocation) {
         this.name = name;
         this.location = startingLocation;
         this.inventory = new ArrayList<>();
-        this.visitedLocations = new HashSet<>();  // Initialize the visited locations set
-        visitedLocations.add(startingLocation.getName());  // Add the starting location to visited
+        this.visitedLocations = new HashSet<>();
+        visitedLocations.add(startingLocation.getName());
+        this.activeQuests = new ArrayList<>();
+        this.completedQuests = new ArrayList<>();
     }
 
     public Locations getLocation() {
@@ -27,7 +31,7 @@ public class Player implements Serializable {
 
     public void setLocation(Locations location) {
         this.location = location;
-        visitedLocations.add(location.getName());  // Add to visited locations when the player moves
+        visitedLocations.add(location.getName());
     }
 
     public String getName() {
@@ -53,8 +57,68 @@ public class Player implements Serializable {
         }
     }
 
-    // New method to get the visited locations
     public HashSet<String> getVisitedLocations() {
         return visitedLocations;
+    }
+
+    public List<Quest> getActiveQuests() {
+        return activeQuests;
+    }
+
+    public void acceptQuest(Quest quest) {
+        activeQuests.add(quest);
+        System.out.println("New Quest Accepted: " + quest.getTitle());
+    }
+
+    // Method to check if the player has completed a specific task
+    public boolean hasCompletedTask(String task) {
+        for (Quest quest : completedQuests) {
+            if (quest.getTasks().contains(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void completeQuest(String questName) {
+        Quest completed = null;
+        for (Quest quest : activeQuests) {
+            if (quest.getTitle().equalsIgnoreCase(questName)) {
+                quest.checkProgress(this);  // This ensures progress is updated
+                completed = quest;
+                break;
+            }
+        }
+        if (completed != null && completed.isCompleted()) {
+            activeQuests.remove(completed);
+            completedQuests.add(completed);
+            System.out.println("Quest completed: " + completed.getTitle());
+        } else {
+            System.out.println("No such quest found or not yet completed.");
+        }
+    }
+
+    public void showQuests() {
+        if (activeQuests.isEmpty() && completedQuests.isEmpty()) {
+            System.out.println("You have no quests.");
+        } else {
+            System.out.println("Your Active Quests:");
+            for (Quest quest : activeQuests) {
+                String status = quest.isCompleted() ? "Completed" : "In Progress";
+                System.out.println("\u001B[32m" + quest.getTitle() + " \u001B[0m- " + status);
+                System.out.println("Description: " + quest.getDescription());
+                System.out.println("Current Task: " + quest.getCurrentTask());
+                System.out.println("Reward: " + quest.getReward());
+                System.out.println();
+            }
+
+            System.out.println("Your Completed Quests:");
+            for (Quest quest : completedQuests) {
+                System.out.println(quest.getTitle() + " - Completed");
+                System.out.println("Description: " + quest.getDescription());
+                System.out.println("Reward: " + quest.getReward());
+                System.out.println();
+            }
+        }
     }
 }
