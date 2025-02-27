@@ -20,6 +20,8 @@ public class WorldMap {
         Locations mountain = new Locations("Mount Troyal", "A rocky mountain with a narrow path leading up.");
         Locations river = new Locations("Troyal River", "A fast-flowing river with a wooden bridge.");
         Locations graveyard = new Locations("Westgate Graveyard", "A small graveyard that appears overgrown. Many broken graves dot the space.");
+        Locations darkCave = new Locations("Dark Cave", "A pitch-black cave. You can't see anything inside.");
+        darkCave.setRequiredItem("Lantern");
 
         // Add locations to the world map
         locations.put(town.getName(), town);
@@ -28,6 +30,7 @@ public class WorldMap {
         locations.put(mountain.getName(), mountain);
         locations.put(river.getName(), river);
         locations.put(graveyard.getName(), graveyard);
+        locations.put(darkCave.getName(), darkCave);
 
         // Connect locations
         town.setExits("north", forest);
@@ -39,6 +42,8 @@ public class WorldMap {
         graveyard.setExits("west", town);
         town.setExits("east", graveyard);
         town.addExit("nearby house", house1);
+        forest.setExits("north", darkCave);
+
 
         // Add NPCs
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");

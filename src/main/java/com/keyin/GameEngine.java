@@ -140,6 +140,10 @@ public class GameEngine {
         Locations currentLocation = player.getLocation();
         Locations nextLocation = currentLocation.getExit(direction);
         if (nextLocation != null) {
+            if (nextLocation.getRequiredItem() != null && !player.hasItem(nextLocation.getRequiredItem())) {
+                System.out.println("You need a " + nextLocation.getRequiredItem() + " to enter this area.");
+                return;
+            }
             player.setLocation(nextLocation);
             System.out.println("\nYou move " + direction + " to: " + nextLocation.getName());
             System.out.println(nextLocation.getDescription());

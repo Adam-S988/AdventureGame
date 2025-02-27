@@ -143,4 +143,15 @@ public class Locations implements Serializable {
         }
         return exit;
     }
+
+    private String requiredItem;
+
+    public void setRequiredItem(String item) {
+        this.requiredItem = item;
+    }
+
+    public String getRequiredItem() {
+        return requiredItem;
+    }
+
 }

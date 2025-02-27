@@ -9,6 +9,7 @@ public class NPC implements Serializable {
     private String description;
     private String dialogue;
     private List<Quest> quests;
+    private String requiredItem;
 
     public NPC(String name, String description, String dialogue) {
         this.name = name;
