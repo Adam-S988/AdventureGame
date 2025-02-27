@@ -16,7 +16,7 @@ public class WorldMap {
         // Define all locations
         Locations town = new Locations("Westgate", "A small town with a bustling marketplace.");
         Locations house1 = new Locations("Quaint House", "A cozy house, perfect for a small family.");
-        Locations forest = new Locations("Woods of the Night", "A dark forest with towering trees.");
+        Locations forest = new Locations("Woods of the Night", "A dark forest with towering trees. A dark cave looms in the north.");
         Locations mountain = new Locations("Mount Troyal", "A rocky mountain with a narrow path leading up.");
         Locations river = new Locations("Troyal River", "A fast-flowing river with a wooden bridge.");
         Locations graveyard = new Locations("Westgate Graveyard", "A small graveyard that appears overgrown. Many broken graves dot the space.");
@@ -42,6 +42,7 @@ public class WorldMap {
         graveyard.setExits("west", town);
         town.setExits("east", graveyard);
         town.addExit("nearby house", house1);
+        house1.addExit("westgate", town);
         forest.setExits("north", darkCave);
 
 

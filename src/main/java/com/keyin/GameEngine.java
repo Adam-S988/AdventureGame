@@ -141,12 +141,11 @@ public class GameEngine {
         Locations nextLocation = currentLocation.getExit(direction);
         if (nextLocation != null) {
             if (nextLocation.getRequiredItem() != null && !player.hasItem(nextLocation.getRequiredItem())) {
-                System.out.println("You need a " + nextLocation.getRequiredItem() + " to enter this area.");
+                System.out.println("\nYou need a \u001B[33m" + nextLocation.getRequiredItem() + "\u001B[0m to enter this area.");
                 return;
             }
             player.setLocation(nextLocation);
-            System.out.println("\nYou move " + direction + " to: " + nextLocation.getName());
-            System.out.println(nextLocation.getDescription());
+            System.out.println("\nYou move " + direction + " to: \u001B[35m" + nextLocation.getName() + "\u001B[0m");
         } else {
             System.out.println("\nYou cannot move in that direction.");
         }

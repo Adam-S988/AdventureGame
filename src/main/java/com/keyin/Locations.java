@@ -78,7 +78,6 @@ public class Locations implements Serializable {
                 System.out.println("- " + name);
             }
         }
-
     }
 
     // New Methods for NPCs
@@ -139,7 +138,7 @@ public class Locations implements Serializable {
     public Locations getExitToLocation(String direction) {
         Locations exit = exits.get(direction);
         if (exit == null) {
-            exit = additionalExits.get(direction);  // Look in additional exits if not found
+            exit = additionalExits.get(direction);
         }
         return exit;
     }
