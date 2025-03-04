@@ -44,13 +44,14 @@ public class WorldMap {
         town.addExit("nearby house", house1);
         house1.addExit("westgate", town);
         forest.setExits("north", darkCave);
+        darkCave.setExits("south", forest);
 
 
         // Add NPCs
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");
         town.addNPC(oldMan);
 
-        NPC elder = new NPC("Elder Rowan", "An old wise man who knows many secrets.", "My Apple!");
+        NPC elder = new NPC("Elder Rowan", "An old wise man who knows many secrets.", "I have heard that there is a legendary Apple made of pure gold!");
         town.addNPC(elder);
 
         // NPC guide to help players with commands
@@ -74,8 +75,8 @@ public class WorldMap {
         river.addNPC(riverGuard);
 
         // Add Quests
-        Quest appleQuest = new Quest("Find the Golden Apple", "Retrieve a golden apple from the forest.",
-                List.of("Travel to the forest", "Find the tree", "Pick the apple"), "100 gold coins");
+        Quest appleQuest = new Quest("Find the Golden Apple", "Locate the Golden Apple, and Return it to the Elder.",
+                List.of("Find the apple"), "100 gold coins");
         elder.addQuest(appleQuest);
 
         Quest rescueQuest = new Quest("Rescue the Lost Traveler", "A traveler is lost in the mountain.",
@@ -91,6 +92,7 @@ public class WorldMap {
         forest.addItem(new Item("Stick", "A sturdy wooden stick, perfect for walking or self-defense."));
         graveyard.addItem(new Item("Amulet", "A mysterious amulet engraved with ancient symbols."));
         river.addItem(new Item("Coin Purse", "A ratty coin purse someone must have dropped. It has a few old coins in it."));
+        darkCave.addItem(new Item("Golden Apple", "An apple made of pure gold. This thing could be worth a lot."));
     }
 
     public Locations getLocation(String name) {

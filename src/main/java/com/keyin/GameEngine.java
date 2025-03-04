@@ -42,7 +42,7 @@ public class GameEngine {
                 String npcName = input.substring(8).trim();
                 NPC npc = player.getLocation().findNPC(npcName);
                 if (npc != null) {
-                    npc.talk();
+                    npc.talk(player);
                     npc.showQuests();
                 } else {
                     System.out.println("\nThere's no one by that name here.");

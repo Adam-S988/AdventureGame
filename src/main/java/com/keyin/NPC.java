@@ -30,9 +30,23 @@ public class NPC implements Serializable {
         return dialogue;
     }
 
-    public void talk() {
+    public void talk(Player player) {
+        // Print the NPC dialogue with color formatting
         System.out.println("\n\u001B[36m" + name + "\u001B[0m: " + "\u001B[34m'" + dialogue + "'\u001B[0m");
+
+        // Check each quest to see if it can be automatically completed
+        for (Quest quest : quests) {
+            if (!quest.isCompleted() && quest.completeAutomatically(player)) {
+                // Quest is automatically completed, so mark it as completed
+                player.completeQuest(quest.getTitle());
+                System.out.println(name + ": " + "Thank you for completing the quest!");
+            } else {
+                // If not completed, print usual dialogue
+                System.out.println(name + ": " + "You still need to finish the quest.");
+            }
+        }
     }
+
 
     public void addQuest(Quest quest) {
         quests.add(quest);

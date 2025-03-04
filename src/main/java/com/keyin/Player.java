@@ -72,8 +72,8 @@ public class Player implements Serializable {
 
     // Method to check if the player has completed a specific task
     public boolean hasCompletedTask(String task) {
-        for (Quest quest : completedQuests) {
-            if (quest.getTasks().contains(task)) {
+        for (Item item : inventory) {  // Example: Checking if the player has a required item
+            if (item.getName().equalsIgnoreCase(task)) {
                 return true;
             }
         }
@@ -82,21 +82,30 @@ public class Player implements Serializable {
 
     public void completeQuest(String questName) {
         Quest completed = null;
+
+        // Loop through active quests to find the quest to complete
         for (Quest quest : activeQuests) {
             if (quest.getTitle().equalsIgnoreCase(questName)) {
-                quest.checkProgress(this);  // This ensures progress is updated
-                completed = quest;
-                break;
+                // Check quest progress and mark as completed if necessary
+                quest.checkProgress(this); // Check the progress of the quest
+
+                if (quest.isCompleted()) {
+                    completed = quest;  // Only mark as completed if it's fully done
+                    break;
+                }
             }
         }
-        if (completed != null && completed.isCompleted()) {
-            activeQuests.remove(completed);
-            completedQuests.add(completed);
+
+        if (completed != null) {
+            activeQuests.remove(completed);  // Remove from active quests
+            completedQuests.add(completed);  // Add to completed quests
             System.out.println("Quest completed: " + completed.getTitle());
+            System.out.println("Reward: " + completed.getReward());
         } else {
             System.out.println("No such quest found or not yet completed.");
         }
     }
+
 
     public void showQuests() {
         if (activeQuests.isEmpty() && completedQuests.isEmpty()) {
@@ -130,5 +139,4 @@ public class Player implements Serializable {
         }
         return false;
     }
-
 }
