@@ -63,9 +63,14 @@ public class WorldMap {
                 "- 'inventory': View your inventory.\n" +
                 "- 'take [item]': Pick up an item.\n" +
                 "- 'drop [item]': Drop an item.\n" +
+                "- 'quests': View your active quests.\n" +
+                "- 'accept quest [quest title]': Accept a quest from an NPC (e.g., 'accept quest Find the golden apple').\n" +
                 "- 'save': Save the game.\n" +
                 "- 'load': Load a saved game.\n" +
-                "- 'quit': Exit the game.\n");
+                "- 'quit': Exit the game.\n" +
+                "Remember, some commands depend on the items or quests you've accepted. If you're stuck, ask around!\n" +
+                "And don't forget, you can type 'talk to guide' anytime for help.\n" +
+                "\nGood luck, adventurer!");
         town.addNPC(startGuide);
 
         NPC ghost = new NPC("Ghost", "A translucent figure floating above the ground.", "Beware... the darkness beyond...");
