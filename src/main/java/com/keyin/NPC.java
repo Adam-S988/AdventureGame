@@ -55,7 +55,7 @@ public class NPC implements Serializable {
 
     public void showQuests() {
         if (quests.isEmpty()) {
-            System.out.println(name + " has no quests available.");
+            System.out.println(" ");
         } else {
             System.out.println(name + "'s Quests:");
             for (Quest quest : quests) {

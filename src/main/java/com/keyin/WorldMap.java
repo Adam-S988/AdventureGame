@@ -16,12 +16,13 @@ public class WorldMap {
         // Define all locations
         Locations town = new Locations("Westgate", "A small town with a bustling marketplace.");
         Locations house1 = new Locations("Quaint House", "A cozy house, perfect for a small family.");
-        Locations forest = new Locations("Woods of the Night", "A dark forest with towering trees. A dark cave looms in the north.");
+        Locations forest = new Locations("Woods of the Night", "A dark forest with towering trees. A dark cave looms in the north. There is a trail heading off to the east.");
         Locations mountain = new Locations("Mount Troyal", "A rocky mountain with a narrow path leading up.");
         Locations river = new Locations("Troyal River", "A fast-flowing river with a wooden bridge.");
         Locations graveyard = new Locations("Westgate Graveyard", "A small graveyard that appears overgrown. Many broken graves dot the space.");
         Locations darkCave = new Locations("Dark Cave", "A pitch-black cave. You can't see anything inside.");
         darkCave.setRequiredItem("Lantern");
+        Locations shrine = new Locations("Sunspire Shrine", "An old shrine, that until recent was frequently used. Now it lays dormant.");
 
         // Add locations to the world map
         locations.put(town.getName(), town);
@@ -31,6 +32,7 @@ public class WorldMap {
         locations.put(river.getName(), river);
         locations.put(graveyard.getName(), graveyard);
         locations.put(darkCave.getName(), darkCave);
+        locations.put(shrine.getName(), shrine);
 
         // Connect locations
         town.setExits("north", forest);
@@ -45,6 +47,8 @@ public class WorldMap {
         house1.addExit("westgate", town);
         forest.setExits("north", darkCave);
         darkCave.setExits("south", forest);
+        forest.setExits("east", shrine);
+        shrine.setExits("west", forest);
 
 
         // Add NPCs

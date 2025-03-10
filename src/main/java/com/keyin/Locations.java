@@ -65,20 +65,36 @@ public class Locations implements Serializable {
     }
 
     public void printExits() {
-        if (!exits.isEmpty()) {
-            System.out.println("\nExits:");
-            for (String direction : exits.keySet()) {
-                System.out.println("- " + direction);
-            }
-        }
+        if (!exits.isEmpty() || !additionalExits.isEmpty()) {
+            StringBuilder output = new StringBuilder();
 
-        if (!additionalExits.isEmpty()) {
-            System.out.println("\nInterior Entrances:");
-            for (String name : additionalExits.keySet()) {
-                System.out.println("- " + name);
+            // Handle Exits
+            if (!exits.isEmpty()) {
+                output.append("Exits: ");
+                for (String direction : exits.keySet()) {
+                    output.append(direction).append(", ");
+                }
+                output.delete(output.length() - 2, output.length());
             }
+
+            // Handle Interior Entrances
+            if (!additionalExits.isEmpty()) {
+                if (output.length() > 0) {
+                    output.append(" | ");
+                }
+                output.append("Interior: ");
+                for (String entrance : additionalExits.keySet()) {
+                    output.append(entrance).append(", ");
+                }
+                output.delete(output.length() - 2, output.length());
+            }
+
+            // Print the final result
+            System.out.println(output);
         }
     }
+
+
 
     // New Methods for NPCs
     public void addNPC(NPC npc) {

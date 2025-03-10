@@ -97,6 +97,7 @@ public class Quest implements Serializable {
         // You can add more auto-completion logic for different quests here
         if (this.title.equals("Find the Golden Apple")) {
             if (player.hasItem("Golden Apple")) {
+                System.out.println("Thank you for bringing me the Golden Apple. Here is your reward!");
                 completed = true;
                 return true;
             }
