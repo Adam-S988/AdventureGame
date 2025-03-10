@@ -18,6 +18,7 @@ public class GameEngine {
 
     public void startGame() {
         // Game intro and instructions
+        // Game intro and instructions
         System.out.println("\nWelcome to the Adventure Game!");
         System.out.println("\nType 'talk to [NPC]' to talk. Type 'quit' to exit.\n");
 
@@ -43,7 +44,6 @@ public class GameEngine {
                 NPC npc = player.getLocation().findNPC(npcName);
 
                 if (npc != null) {
-                    // Special dialogue for River Guard
                     if (npc.getName().equalsIgnoreCase("River Guard")) {
                         if (player.hasItem("Crossing Permit")) {
                             System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'Ah, you have a Crossing Permit! You may pass safely.'\u001B[0m");
@@ -58,7 +58,6 @@ public class GameEngine {
                             System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'I have heard that there is a legendary Apple made of pure gold!'\u001B[0m");
                         }
                     } else {
-                        // Default talk behavior for other NPCs
                         npc.talk(player);
                     }
                 } else {
@@ -76,6 +75,8 @@ public class GameEngine {
                 } else {
                     System.out.println("\nThere's no item by that name here.");
                 }
+            } else if (input.startsWith("read ")) {
+                player.readItem();
             } else if (input.startsWith("enter ")) {
                 String locationName = input.substring(6).trim();
                 Locations targetLocation = player.getLocation().getExit(locationName);
@@ -108,7 +109,7 @@ public class GameEngine {
             } else if (input.equals("load")) {
                 loadGame();
             } else {
-                System.out.println("Invalid command. Type 'talk to guide' for help.");
+                System.out.println("Invalid command.");
             }
         }
     }

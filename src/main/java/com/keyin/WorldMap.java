@@ -86,6 +86,9 @@ public class WorldMap {
         NPC riverGuard = new NPC("River Guard", "A serious looking man who watches over those who cross the river.", "I'm sorry, but I cannot let you cross the river.");
         river.addNPC(riverGuard);
 
+        NPC pilgrim = new NPC("Travelling Pilgrim", "A wordly traveller who has come to visit the sacred Sunspire Shrine.", "I have heard stories about this shrine, but it looks so much more beautiful than I could have ever imagined!");
+        shrine.addNPC(pilgrim);
+
         // Add items to locations
         town.addItem(new Item("Lantern", "An old lantern with a faint glow."));
         forest.addItem(new Item("Stick", "A sturdy wooden stick, perfect for walking or self-defense."));
@@ -93,7 +96,13 @@ public class WorldMap {
         river.addItem(new Item("Coin Purse", "A ratty coin purse someone must have dropped. It has a few old coins in it."));
         darkCave.addItem(new Item("Golden Apple", "An apple made of pure gold. This thing could be worth a lot."));
         shrine.addItem((new Item("Crossing Permit", "An old permit that allows you to cross at the River Crossing.")));
+
+        // Add the book as an item to the shrine location
+        String book1Content = "The Sunspire Shrine stands tall, reaching towards the heavens. It was once a place of great power, filled with light and sacred rituals.\nNow, it stands quiet, waiting for those brave enough to restore its former glory.";
+        BookItem book1 = new BookItem("Secrets of Sunspire", "An ancient book detailing the history of the shrine.", "\n\u001B[34m" + book1Content + "\n\u001B[0m");
+        shrine.addItem(book1);
     }
+
 
     public Locations getLocation(String name) {
         return locations.get(name);

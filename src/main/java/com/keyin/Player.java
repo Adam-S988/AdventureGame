@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -75,4 +76,41 @@ public class Player implements Serializable {
         }
         return false;
     }
+
+    public void readItem() {
+        if (inventory.isEmpty()) {
+            System.out.println("Your inventory is empty.");
+            return;
+        }
+
+        System.out.println("Your Inventory:");
+        for (Item item : inventory) {
+            System.out.println("- " + item.getName()); // Assuming Item has getName() method
+        }
+
+        System.out.println("Enter the name of the book you want to read:");
+
+        Scanner scanner = new Scanner(System.in);
+        String itemName = scanner.nextLine();
+
+        // Find the item in the inventory
+        Item item = null;
+        for (Item i : inventory) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                item = i;
+                break;
+            }
+        }
+
+        if (item != null) {
+            if (item instanceof BookItem) {
+                ((BookItem) item).read();  // Cast to BookItem and call read method
+            } else {
+                System.out.println("You can't read this item.");
+            }
+        } else {
+            System.out.println("You don't have an item with that name in your inventory.");
+        }
+    }
+
 }
