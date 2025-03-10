@@ -41,9 +41,26 @@ public class GameEngine {
             } else if (input.startsWith("talk to ")) {
                 String npcName = input.substring(8).trim();
                 NPC npc = player.getLocation().findNPC(npcName);
+
                 if (npc != null) {
-                    npc.talk(player);
-                    npc.showQuests();
+                    // Special dialogue for River Guard
+                    if (npc.getName().equalsIgnoreCase("River Guard")) {
+                        if (player.hasItem("Crossing Permit")) {
+                            System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'Ah, you have a Crossing Permit! You may pass safely.'\u001B[0m");
+                        } else {
+                            System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'Stop! You cannot cross without a permit.'\u001B[0m");
+                        }
+                    }
+                    else if (npc.getName().equalsIgnoreCase("Elder Rowan")) {
+                        if (player.hasItem("Golden Apple")) {
+                            System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'You found the Apple?! Bless. As a reward, I will teach you a secret...'\u001B[0m");
+                        } else {
+                            System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'I have heard that there is a legendary Apple made of pure gold!'\u001B[0m");
+                        }
+                    } else {
+                        // Default talk behavior for other NPCs
+                        npc.talk(player);
+                    }
                 } else {
                     System.out.println("\nThere's no one by that name here.");
                 }
@@ -90,49 +107,9 @@ public class GameEngine {
                 saveGame();
             } else if (input.equals("load")) {
                 loadGame();
-            } else if (input.equals("quests")) {
-                player.showQuests();
-            } else if (input.startsWith("accept quest ")) {
-                String questTitle = input.substring(13).trim();
-                acceptQuestFromCurrentLocation(questTitle);
-            } else if (input.startsWith("complete quest ")) {
-                String questTitle = input.substring(14).trim();
-                player.completeQuest(questTitle);
             } else {
                 System.out.println("Invalid command. Type 'talk to guide' for help.");
             }
-        }
-    }
-
-    private void acceptQuestFromCurrentLocation(String questTitle) {
-        boolean questFound = false;
-        for (NPC npc : player.getLocation().getNPCs()) {
-            Quest quest = npc.getQuestByTitle(questTitle);
-            if (quest != null) {
-                // Check if the player already has this quest
-                boolean alreadyHasQuest = false;
-                for (Quest activeQuest : player.getActiveQuests()) {
-                    if (activeQuest.getTitle().equalsIgnoreCase(questTitle)) {
-                        alreadyHasQuest = true;
-                        break;
-                    }
-                }
-
-                if (alreadyHasQuest) {
-                    System.out.println("You have already accepted this quest!");
-                } else {
-                    player.acceptQuest(quest);
-                    System.out.println("Quest accepted from " + npc.getName() + "!");
-                    System.out.println("Description: " + quest.getDescription());
-                    System.out.println("First task: " + quest.getCurrentTask());
-                }
-                questFound = true;
-                break;
-            }
-        }
-
-        if (!questFound) {
-            System.out.println("No such quest available in this location.");
         }
     }
 
@@ -192,6 +169,14 @@ public class GameEngine {
         if (player.getVisitedLocations().contains("Westgate Graveyard")) {
             System.out.println("\u001B[35mWestgate Graveyard" + "\u001B[0m");
             System.out.println("Exits: west");
+        }
+        if (player.getVisitedLocations().contains("Sunspire Shrine")) {
+            System.out.println("\u001B[35mSunspire Shrine" + "\u001B[0m");
+            System.out.println("Exits: west");
+        }
+        if (player.getVisitedLocations().contains("Bryn Field")) {
+            System.out.println("\u001B[35mBryn Field" + "\u001B[0m");
+            System.out.println("Exits: east");
         }
         System.out.println("------------------");
     }

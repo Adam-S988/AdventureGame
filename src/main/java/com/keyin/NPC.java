@@ -8,14 +8,12 @@ public class NPC implements Serializable {
     private String name;
     private String description;
     private String dialogue;
-    private List<Quest> quests;
     private String requiredItem;
 
     public NPC(String name, String description, String dialogue) {
         this.name = name;
         this.description = description;
         this.dialogue = dialogue;
-        this.quests = new ArrayList<>();
     }
 
     public String getName() {
@@ -33,47 +31,5 @@ public class NPC implements Serializable {
     public void talk(Player player) {
         // Print the NPC dialogue with color formatting
         System.out.println("\n\u001B[36m" + name + "\u001B[0m: " + "\u001B[34m'" + dialogue + "'\u001B[0m");
-
-        // Check each quest to see if it can be automatically completed
-        for (Quest quest : quests) {
-            if (!quest.isCompleted() && quest.completeAutomatically(player)) {
-                // Quest is automatically completed, so mark it as completed
-                player.completeQuest(quest.getTitle());
-                System.out.println(name + ": " + "Thank you for completing the quest!");
-            } else {
-                // If not completed, print usual dialogue
-                System.out.println(name + ": " + "You still need to finish the quest.");
-            }
-        }
-    }
-
-
-    public void addQuest(Quest quest) {
-        quests.add(quest);
-        System.out.println("Quest added to " + name + ": " + quest.getTitle());
-    }
-
-    public void showQuests() {
-        if (quests.isEmpty()) {
-            System.out.println(" ");
-        } else {
-            System.out.println(name + "'s Quests:");
-            for (Quest quest : quests) {
-                System.out.println("\u001B[32m" + quest.getTitle() + " \u001B[0m- " + (quest.isCompleted() ? "Completed" : "In Progress"));
-                System.out.println("Description: " + quest.getDescription());
-                System.out.println("Current Task: " + quest.getCurrentTask());
-                System.out.println("Reward: " + quest.getReward());
-                System.out.println();
-            }
-        }
-    }
-
-    public Quest getQuestByTitle(String title) {
-        for (Quest quest : quests) {
-            if (quest.getTitle().equalsIgnoreCase(title)) {
-                return quest;
-            }
-        }
-        return null;
     }
 }

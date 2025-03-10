@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Locations implements Serializable {
-    private static final long serialVersionUID = 1L; // Optional: Add a serialVersionUID for version control of serialized objects
+    private static final long serialVersionUID = 1L;
     private String name;
     private String description;
     private Map<String, Locations> exits;
-    private Map<String, Locations> additionalExits;  // For exits added via addExit
+    private Map<String, Locations> additionalExits;
     private List<NPC> npcs;
     private List<Item> items;
 
@@ -19,7 +19,7 @@ public class Locations implements Serializable {
         this.name = name;
         this.description = description;
         this.exits = new HashMap<>();
-        this.additionalExits = new HashMap<>();  // Initialize additionalExits
+        this.additionalExits = new HashMap<>();
         this.npcs = new ArrayList<>();
         this.items = new ArrayList<>();
     }

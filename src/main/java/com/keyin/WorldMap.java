@@ -23,6 +23,8 @@ public class WorldMap {
         Locations darkCave = new Locations("Dark Cave", "A pitch-black cave. You can't see anything inside.");
         darkCave.setRequiredItem("Lantern");
         Locations shrine = new Locations("Sunspire Shrine", "An old shrine, that until recent was frequently used. Now it lays dormant.");
+        Locations field = new Locations("Bryn Field", "A small field stretching along some rolling hills.");
+        field.setRequiredItem("Crossing Permit");
 
         // Add locations to the world map
         locations.put(town.getName(), town);
@@ -33,6 +35,7 @@ public class WorldMap {
         locations.put(graveyard.getName(), graveyard);
         locations.put(darkCave.getName(), darkCave);
         locations.put(shrine.getName(), shrine);
+        locations.put(field.getName(), field);
 
         // Connect locations
         town.setExits("north", forest);
@@ -49,6 +52,8 @@ public class WorldMap {
         darkCave.setExits("south", forest);
         forest.setExits("east", shrine);
         shrine.setExits("west", forest);
+        river.setExits("west", field);
+        field.setExits("east", river);
 
 
         // Add NPCs
@@ -67,12 +72,10 @@ public class WorldMap {
                 "- 'inventory': View your inventory.\n" +
                 "- 'take [item]': Pick up an item.\n" +
                 "- 'drop [item]': Drop an item.\n" +
-                "- 'quests': View your active quests.\n" +
-                "- 'accept quest [quest title]': Accept a quest from an NPC (e.g., 'accept quest Find the golden apple').\n" +
                 "- 'save': Save the game.\n" +
                 "- 'load': Load a saved game.\n" +
                 "- 'quit': Exit the game.\n" +
-                "Remember, some commands depend on the items or quests you've accepted. If you're stuck, ask around!\n" +
+                "Remember, some commands depend on the items you've picked up. If you're stuck, ask around!\n" +
                 "And don't forget, you can type 'talk to guide' anytime for help.\n" +
                 "\nGood luck, adventurer!");
         town.addNPC(startGuide);
@@ -83,25 +86,13 @@ public class WorldMap {
         NPC riverGuard = new NPC("River Guard", "A serious looking man who watches over those who cross the river.", "I'm sorry, but I cannot let you cross the river.");
         river.addNPC(riverGuard);
 
-        // Add Quests
-        Quest appleQuest = new Quest("Find the Golden Apple", "Locate the Golden Apple, and Return it to the Elder.",
-                List.of("Find the apple"), "100 gold coins");
-        elder.addQuest(appleQuest);
-
-        Quest rescueQuest = new Quest("Rescue the Lost Traveler", "A traveler is lost in the mountain.",
-                List.of("Search the mountain", "Find the lost traveler", "Bring them back to town"), "250 gold coins");
-        elder.addQuest(rescueQuest);
-
-        Quest glassesQuest = new Quest("Find my Glasses!","Find the Elder's glasses.",
-                List.of("His glasses are somewhere in his house"), "50 gold coins");
-        oldMan.addQuest(glassesQuest);
-
         // Add items to locations
         town.addItem(new Item("Lantern", "An old lantern with a faint glow."));
         forest.addItem(new Item("Stick", "A sturdy wooden stick, perfect for walking or self-defense."));
         graveyard.addItem(new Item("Amulet", "A mysterious amulet engraved with ancient symbols."));
         river.addItem(new Item("Coin Purse", "A ratty coin purse someone must have dropped. It has a few old coins in it."));
         darkCave.addItem(new Item("Golden Apple", "An apple made of pure gold. This thing could be worth a lot."));
+        shrine.addItem((new Item("Crossing Permit", "An old permit that allows you to cross at the River Crossing.")));
     }
 
     public Locations getLocation(String name) {
