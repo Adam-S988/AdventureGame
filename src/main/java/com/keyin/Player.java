@@ -85,7 +85,7 @@ public class Player implements Serializable {
 
         System.out.println("Your Inventory:");
         for (Item item : inventory) {
-            System.out.println("- " + item.getName()); // Assuming Item has getName() method
+            System.out.println("- " + item.getName());
         }
 
         System.out.println("Enter the name of the book you want to read:");
@@ -104,7 +104,7 @@ public class Player implements Serializable {
 
         if (item != null) {
             if (item instanceof BookItem) {
-                ((BookItem) item).read();  // Cast to BookItem and call read method
+                ((BookItem) item).read();
             } else {
                 System.out.println("You can't read this item.");
             }

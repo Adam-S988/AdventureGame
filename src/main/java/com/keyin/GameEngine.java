@@ -72,6 +72,13 @@ public class GameEngine {
                         } else {
                             System.out.println("\n\u001B[36mRiver Guard\u001B[0m: \u001B[34m'I have heard that there is a legendary Apple made of pure gold!'\u001B[0m");
                         }
+                    }
+                    else if (npc.getName().equalsIgnoreCase("Mysterious Figure")) {
+                        if (player.hasItem("Rusty Sword")) {
+                            System.out.println("\n\u001B[36mMysterious Figure\u001B[0m: \u001B[34m'Ahhhh, there is the sword I was looking for. Many thanks for this... Your name is" + player + ".'\u001B[0m");
+                        } else {
+                            npc.talk(player);
+                        }
                     } else {
                         npc.talk(player);
                     }

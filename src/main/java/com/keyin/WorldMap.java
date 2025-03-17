@@ -1,7 +1,6 @@
 package com.keyin;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class WorldMap {
@@ -87,7 +86,7 @@ public class WorldMap {
                 "Remember, some commands depend on the items you've picked up. If you're stuck, ask around!\n" +
                 "And don't forget, you can type 'talk to guide' anytime for help.\n" +
                 "\nGood luck, adventurer!");
-        house1.addNPC(startGuide);
+        town.addNPC(startGuide);
 
         NPC ghost = new NPC("Ghost", "A translucent figure floating above the ground.", "Beware... the darkness beyond...");
         graveyard.addNPC(ghost);
