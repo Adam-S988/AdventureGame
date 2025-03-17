@@ -26,6 +26,7 @@ public class WorldMap {
         Locations field = new Locations("Bryn Field", "A small field stretching along some rolling hills.");
         field.setRequiredItem("Crossing Permit");
         Locations house2 = new Locations("Abandoned House", "A house that looks like it hasn't been lived in for quite some time.");
+        house2.setRequiredItem("Mysterious Key");
 
         // Add locations to the world map
         locations.put(town.getName(), town);
@@ -47,16 +48,16 @@ public class WorldMap {
         river.setExits("east", town);
         graveyard.setExits("west", town);
         town.setExits("east", graveyard);
-        town.addExit("nearby house", house1);
-        house1.addExit("westgate", town);
+        town.setExits("nearby house", house1);
+        house1.setExits("westgate", town);
         forest.setExits("north", darkCave);
         darkCave.setExits("south", forest);
         forest.setExits("east", shrine);
         shrine.setExits("west", forest);
         river.setExits("west", field);
         field.setExits("east", river);
-        town.addExit("abandoned house", house2);
-        house2.addExit("westgate", town);
+        town.setExits("abandoned house", house2);
+        house2.setExits("westgate", town);
 
 
         // Add NPCs
