@@ -62,7 +62,7 @@ public class WorldMap {
         // Add NPCs
         NPC mysteriousFigure = new NPC("Mysterious Figure",
                 "A shadowy figure, their face obscured by the dim light. Their presence feels almost unreal.",
-                "You don't remember me, do you? Do you even know who you are anymore? What a shame. You were showing so much promise. You probably don't even\nremember your objective do you? You were to bring to me a Sword from here in town. Do that for me, and I'll tell you more.");
+                "You don't remember me, do you? Do you even know who you are anymore? What a shame. You were showing so much promise. You probably don't even\nremember your objective do you? You were to bring to me a Sword from here in town. Do that for me, and I'll tell you more.\n This should help you.");
         house1.addNPC(mysteriousFigure);
 
         NPC oldMan = new NPC("Old Man", "A frail man with a long, white beard.", "The world isn't as safe as it once was...");
