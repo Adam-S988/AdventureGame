@@ -7,20 +7,35 @@ public class GameEngine {
     private WorldMap worldMap;
     private Player player;
     private Scanner scanner;
+    private boolean isFirstRun;
 
     public GameEngine() {
         worldMap = new WorldMap();
         scanner = new Scanner(System.in);
-        String startingLocationName = "Westgate";
+        String startingLocationName = "Quaint House";
         Locations startingLocation = worldMap.getLocation(startingLocationName);
         player = new Player("Player1", startingLocation);
+        isFirstRun = true;
     }
 
     public void startGame() {
-        // Game intro and instructions
-        // Game intro and instructions
-        System.out.println("\nWelcome to the Adventure Game!");
-        System.out.println("\nType 'talk to [NPC]' to talk. Type 'quit' to exit.\n");
+        if (isFirstRun) {
+            System.out.println("\nWelcome to the Adventure Game!");
+            System.out.println("\nType 'talk to [NPC]' to talk. Type 'quit' to exit.\n");
+            System.out.println("\nYou have woken up, not exactly sure where you are.");
+            System.out.println("Your head feels heavy, as if a fog has settled in your mind, clouding your thoughts.");
+            scanner.nextLine();
+            System.out.println("You slowly open your eyes, but the surroundings are unfamiliar. The walls are made of weathered stone, and the dim light from a small window reveals\nnothing but shadows.");
+            System.out.println("As you look around the room, you realize that nothing seems familiar... not the furniture, not the decorations, not even the smell of the air.");
+            System.out.println("A figure stands across the room. A person, their face obscured by the dim light, staring at you. You can't remember how they got there, or even if you know them.");
+            System.out.println("The person speaks, their voice soft yet filled with urgency: 'Are you alright? Do you remember anything?'");
+            scanner.nextLine();
+            System.out.println("You try to speak, but your own voice sounds distant, like it's coming from someone else. You struggle to remember who you are, but your mind remains blank, like a\npage waiting to be written.");
+            System.out.println("Your memory seems fractured, pieces of it slipping away just as quickly as you try to grasp them. Who are you? How did you get here?");
+            System.out.println("The person in front of you waits for a response, concern in their eyes, but you can't shake the feeling that something isn't quite right...");
+            scanner.nextLine();
+            isFirstRun = false;
+        }
 
         while (true) {
             System.out.println("\nYou are in: \u001B[35m" + player.getLocation().getName() + "\u001B[0m");
