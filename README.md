@@ -42,6 +42,10 @@ This is a text-based adventure game developed in Java. The player can:
     - `look`: Inspect your surroundings and see nearby items.
     - `talk to [NPC name]`: Start a conversation with an NPC.
     - `take [item]`: Pick up an item.
+    - `drop [item]`: Drop an item.
+    - `inventory`: Show a list of all items in possession.
+    - `read book`: Read any books held in possession.
+    - `map`: Show a list of all locations discovered.
     - `quit`: Exit the game.
 
 ---
@@ -75,11 +79,9 @@ Items are scattered throughout the land. Use `look` to find them and `take [item
 ---
 
 ## 💡 Features to Implement
-- Combat system with enemies.
 - Inventory management.
 - Puzzles and quests.
 - Enhanced NPC dialogues with branching narratives.
-- Save and load game functionality.
 
 ---
 
@@ -100,3 +102,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 Created by **Adam**.  
 For questions or feedback, reach out via email or through GitHub Issues.
+
+---
+
+## 📷 Screenshots
+<img width="800" alt="AdventureGame" src="https://github.com/user-attachments/assets/a0d7235c-dffa-4634-877f-f3b5d1be2327" />
+<img width="800" alt="AdventureGame2" src="https://github.com/user-attachments/assets/4dc39a2f-3d35-4fdf-95ea-a3a68279890e" />
